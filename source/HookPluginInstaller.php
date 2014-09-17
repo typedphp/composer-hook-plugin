@@ -10,14 +10,12 @@ use Exception;
 class HookPluginInstaller extends LibraryInstaller
 {
   /**
-   * @param InstalledRepositoryInterface $repository
-   * @param PackageInterface             $package
-   *
    * @return array
    */
-  public function install(InstalledRepositoryInterface $repository, PackageInterface $package)
+  public function install()
   {
     $this->io->write("Install");
+    return;
 
     $hooks = [];
     $extra = $package->getExtra();
