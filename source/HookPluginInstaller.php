@@ -104,6 +104,11 @@ class HookPluginInstaller extends LibraryInstaller
     $append   = $this->addClasses($classes, $previous);
     $modified = "";
 
+    if ($this->debug) {
+      $this->io->write("Index: " . print_r($index, true));
+      $this->io->write("Append: " . print_r($append, true));
+    }
+
     if (count($append)) {
       $modified .= substr($source, 0, $index);
 
