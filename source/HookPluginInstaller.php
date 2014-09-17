@@ -36,15 +36,11 @@ class HookPluginInstaller extends LibraryInstaller
    */
   protected function addHook(array $hook)
   {
-    try {
-      $this->addHookToFile(
-        $hook["key"],
-        $hook["classes"],
-        $hook["file"]
-      );
-    } catch (Exception $e) {
-      $this->io->write("Skipping malformed hook.");
-    }
+    $this->addHookToFile(
+      $hook["key"],
+      $hook["classes"],
+      $hook["file"]
+    );
   }
 
   /**
@@ -55,7 +51,6 @@ class HookPluginInstaller extends LibraryInstaller
   protected function addHookToFile($key, array $classes, $file)
   {
     if (!file_exists($file)) {
-      $this->io->write("{$file} not found.");
       return;
     }
 
