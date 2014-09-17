@@ -127,9 +127,11 @@ class HookPluginInstaller extends LibraryInstaller
     $single = strpos($source, $last);
     $double = strpos($source, str_replace("\\", "\\\\", $last));
 
-    if ($single) {
+    if ($single !== false) {
       $index = strpos($source, "\\n", $single);
-    } else if ($double) {
+    }
+
+    if ($double !== false) {
       $index = strpos($source, "\\n", $double);
     }
 
