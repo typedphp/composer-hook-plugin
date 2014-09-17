@@ -134,6 +134,9 @@ class HookPluginInstaller extends LibraryInstaller
 
     $this->io->write("source: " . print_r($source, true));
     $this->io->write("pattern: " . print_r($pattern, true));
+    
+    $this->io->write("strpos (one): " . strpos($source, $last));
+    $this->io->write("strpos (two): " . strpos($source, str_replace("\\", "\\\\", $last)));
 
     preg_match_all($pattern, $source, $matches, PREG_OFFSET_CAPTURE);
 
