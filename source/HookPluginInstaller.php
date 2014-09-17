@@ -120,7 +120,7 @@ class HookPluginInstaller extends LibraryInstaller
 
       foreach ($append as $key => $value) {
         if (is_string($key)) {
-          $modified .= "{$key} => {$value},\n";
+          $modified .= "'{$key}' => {$value},\n";
         } else {
           $modified .= "{$value},\n";
         }
@@ -211,15 +211,13 @@ class HookPluginInstaller extends LibraryInstaller
     $append = [];
 
     foreach ($classes as $key => $value) {
-      $quoted = "'{$value}'";
-
       if (is_string($key)) {
         if (!isset($previous[$key])) {
-          $append[$key] = $quoted;
+          $append["'{$key}'"] = "'{$value}'";
         }
       } else {
         if (!in_array($value, $previous)) {
-          $append[] = $quoted;
+          $append[] = "'{$value}'";
         }
       }
     }
