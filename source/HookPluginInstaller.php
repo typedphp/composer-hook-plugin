@@ -7,7 +7,7 @@ use Composer\Package\PackageInterface;
 use Composer\Repository\InstalledRepositoryInterface;
 use Exception;
 
-class ConfigurationPluginInstaller extends LibraryInstaller
+class HookPluginInstaller extends LibraryInstaller
 {
   /**
    * @param InstalledRepositoryInterface $repository
@@ -24,8 +24,9 @@ class ConfigurationPluginInstaller extends LibraryInstaller
       $hooks = $extra["hooks"];
     }
 
+    print_r($extra);
+
     foreach ($hooks as $hook) {
-      print_r($hook);
       $this->addHook($hook);
     }
   }

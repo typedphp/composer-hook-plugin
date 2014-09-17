@@ -6,7 +6,7 @@ use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 
-class ConfigurationPlugin implements PluginInterface
+class HookPlugin implements PluginInterface
 {
   /**
    * @param Composer    $composer
@@ -14,7 +14,7 @@ class ConfigurationPlugin implements PluginInterface
    */
   public function activate(Composer $composer, IOInterface $io)
   {
-    $installer = new ConfigurationPluginInstaller($io, $composer);
+    $installer = new HookPluginInstaller($io, $composer);
 
     $composer
       ->getInstallationManager()
