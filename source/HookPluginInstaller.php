@@ -130,18 +130,10 @@ class HookPluginInstaller extends LibraryInstaller
   protected function getInsertionIndex(array $items, $source)
   {
     $last = end($items);
+    $one  = strpos($source, $last);
+    $two  = strpos($source, str_replace("\\", "\\\\", $last));
 
-    $this->io->write("source: " . print_r($source, true));
-    $this->io->write("strpos (one): " . print_r(strpos($source, $last), true));
-    $this->io->write("strpos (two): " . print_r(strpos($source, str_replace("\\", "\\\\", $last)), true));
-
-    exit();
-
-    if (count($matches) < 1) {
-      return -1;
-    }
-
-    return $matches[count($matches) - 1][0][1];
+    return strpos($source, "\n", $one || $two) || -1;
   }
 
   /**
