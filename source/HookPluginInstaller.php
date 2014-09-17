@@ -43,9 +43,7 @@ class HookPluginInstaller extends LibraryInstaller
         $hook["file"]
       );
     } catch (Exception $e) {
-      if ($this->debug) {
-        $this->io->write("Skipping malformed hook.");
-      }
+      $this->io->write("Skipping malformed hook.");
     }
   }
 
@@ -57,10 +55,7 @@ class HookPluginInstaller extends LibraryInstaller
   protected function addHookToFile($key, array $classes, $file)
   {
     if (!file_exists($file)) {
-      if ($this->debug) {
-        $this->io->write("{$file} not found.");
-      }
-
+      $this->io->write("{$file} not found.");
       return;
     }
 
@@ -139,9 +134,11 @@ class HookPluginInstaller extends LibraryInstaller
 
     $pattern = "#{$last}.+?\n#";
 
+    $this->io->write("pattern: " . print_r($pattern, true));
+
     preg_match_all($pattern, $source, $matches, PREG_OFFSET_CAPTURE);
 
-    $this->io->write("matches: ", print_r($matches, true));
+    $this->io->write("matches: " . print_r($matches, true));
 
     if (count($matches) < 1) {
       return -1;
