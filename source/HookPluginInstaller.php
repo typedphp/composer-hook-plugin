@@ -24,7 +24,7 @@ class HookPluginInstaller extends LibraryInstaller
       $hooks = $extra["hooks"];
     }
 
-    $this->io->write("Hooks: ", print_r($hooks, true));
+    $this->io->write("Hooks: " . print_r($hooks, true));
 
     foreach ($hooks as $hook) {
       $this->addHook($hook);
@@ -38,7 +38,7 @@ class HookPluginInstaller extends LibraryInstaller
    */
   protected function addHook($hook)
   {
-    $this->io->write("Hook: ", print_r($hook, true));
+    $this->io->write("Hook: " . print_r($hook, true));
 
     try {
       $this->addHookToFile(
