@@ -9,12 +9,6 @@ use Exception;
 
 class HookPluginInstaller extends LibraryInstaller
 {
-
-  /**
-   * @var bool
-   */
-  protected $debug = false;
-
   /**
    * @param InstalledRepositoryInterface $repository
    * @param PackageInterface             $package
@@ -30,14 +24,6 @@ class HookPluginInstaller extends LibraryInstaller
       $hooks = $extra["hooks"];
     }
 
-    if (isset($extra["debug"])) {
-      $this->debug = (boolean) $extra["debug"];
-    }
-
-    if ($this->debug) {
-      $this->io->write("Hooks: " . print_r($hooks, true));
-    }
-
     foreach ($hooks as $hook) {
       $this->addHook($hook);
     }
@@ -50,10 +36,6 @@ class HookPluginInstaller extends LibraryInstaller
    */
   protected function addHook(array $hook)
   {
-    if ($this->debug) {
-      $this->io->write("Hook: " . print_r($hook, true));
-    }
-
     try {
       $this->addHookToFile(
         $hook["key"],
@@ -76,7 +58,7 @@ class HookPluginInstaller extends LibraryInstaller
   {
     if (!file_exists($file)) {
       if ($this->debug) {
-        $this->io->write("File {$file} not found.");
+        $this->io->write("{$file} not found.");
       }
 
       return;
@@ -86,28 +68,13 @@ class HookPluginInstaller extends LibraryInstaller
     $source   = file_get_contents($file);
     $previous = $this->getArrayValueByKey($data, $key);
 
-    if ($this->debug) {
-      $this->io->write("Data: " . print_r($data, true));
-      $this->io->write("Source: " . print_r($source, true));
-      $this->io->write("Previous: " . print_r($previous, true));
-    }
-
     if (empty($previous)) {
-      if ($this->debug) {
-        $this->io->write("No previous items to track.");
-      }
-
       return;
     }
 
     $index    = $this->getInsertionIndex($previous, $source);
     $append   = $this->addClasses($classes, $previous);
     $modified = "";
-
-    if ($this->debug) {
-      $this->io->write("Index: " . print_r($index, true));
-      $this->io->write("Append: " . print_r($append, true));
-    }
 
     if (count($append)) {
       $modified .= substr($source, 0, $index);
@@ -167,40 +134,20 @@ class HookPluginInstaller extends LibraryInstaller
    */
   protected function getInsertionIndex(array $items, $source)
   {
-    $pattern = "#\\n*(\\s*)(['\"]){1}(";
+    $last = end($items);
+    $last = preg_quote($last, "\\");
 
-    $parts = $this->getNameParts($items);
-
-    foreach ($parts as $i => $part) {
-      $pattern .= $part;
-
-      if ($i !== count($parts) - 1) {
-        $pattern .= "[\\\\]{1,2}";
-      }
-    }
-
-    $pattern = rtrim($pattern, "\\");
-    $pattern .= ")(['\"]){1},?(\n+)#";
+    $pattern = "#{$last}.+?\n#";
 
     preg_match_all($pattern, $source, $matches, PREG_OFFSET_CAPTURE);
+
+    $this->io->write("matches: ", print_r($matches, true));
 
     if (count($matches) < 1) {
       return -1;
     }
 
     return $matches[count($matches) - 1][0][1];
-  }
-
-  /**
-   * @param array $items
-   *
-   * @return array
-   */
-  protected function getNameParts(array $items)
-  {
-    $last = preg_quote(end($items), "\\");
-
-    return preg_split("#\\\\#", $last, -1, PREG_SPLIT_NO_EMPTY);
   }
 
   /**
