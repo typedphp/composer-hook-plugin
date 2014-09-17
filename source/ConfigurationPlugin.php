@@ -3,11 +3,10 @@
 namespace TypedPHP\Composer;
 
 use Composer\Composer;
-use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 
-class ConfigurationPlugin implements PluginInterface, EventSubscriberInterface
+class ConfigurationPlugin implements PluginInterface
 {
   /**
    * @param Composer    $composer
