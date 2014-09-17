@@ -32,10 +32,12 @@ class HookPluginInstaller extends LibraryInstaller
   }
 
   /**
-   * @param array $hook
+   * @param mixed $hook
    */
-  protected function addHook(array $hook)
+  protected function addHook($hook)
   {
+    $this->io->write("Hook: ", print_r($hook, true));
+    
     try {
       $this->addHookToFile(
         $hook->key,
