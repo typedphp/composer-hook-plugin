@@ -118,7 +118,14 @@ class HookPluginInstaller extends LibraryInstaller
         $modified .= ",\n";
       }
 
-      $modified .= join(",\n", $append);
+      foreach ($append as $key => $value) {
+        if (is_string($key)) {
+          $modified .= "{$key} => {$value},\n";
+        } else {
+          $modified .= "{$value},\n";
+        }
+      }
+
       $modified .= substr($source, $index);
 
       file_put_contents($file, $modified);
