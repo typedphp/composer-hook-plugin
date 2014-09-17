@@ -61,7 +61,7 @@ class HookPluginInstaller extends LibraryInstaller
       return;
     }
 
-    $index    = $this->getInsertionIndex($previous, $source, $key);
+    $index    = $this->getInsertionIndex($previous, $source);
     $append   = $this->addClasses($classes, $previous);
     $modified = "";
 
@@ -118,18 +118,14 @@ class HookPluginInstaller extends LibraryInstaller
   /**
    * @param array  $items
    * @param string $source
-   * @param string $key
    *
    * @return mixed
    */
-  protected function getInsertionIndex(array $items, $source, $key)
+  protected function getInsertionIndex(array $items, $source)
   {
-    $last = end($items);
-    $key  = strpos($source, $key);
-    
-    $single = strpos($source, $last, $key);
-    $double = strpos($source, str_replace("\\", "\\\\", $last), $key);
-    $half   = strpos($source, str_replace("\\\\", "\\", $last), $key);
+    $last   = end($items);
+    $single = strpos($source, $last);
+    $double = strpos($source, str_replace("\\", "\\\\", $last));
 
     if ($single) {
       $index = strpos($source, "\\n", $single);
@@ -137,10 +133,6 @@ class HookPluginInstaller extends LibraryInstaller
 
     if ($double) {
       $index = strpos($source, "\\n", $double);
-    }
-
-    if ($half) {
-      $index = strpos($source, "\\n", $half);
     }
 
     if ($index) {
