@@ -129,11 +129,8 @@ class HookPluginInstaller extends LibraryInstaller
    */
   protected function getInsertionIndex(array $items, $source)
   {
-    $last = end($items);
-    $last = preg_quote($last, "\\");
-
+    $last    = end($items);
     $pattern = "#({$last})#";
-    $source  = preg_quote($source, "\\");
 
     $this->io->write("source: " . print_r($source, true));
     $this->io->write("pattern: " . print_r($pattern, true));
