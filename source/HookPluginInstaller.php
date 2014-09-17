@@ -9,6 +9,12 @@ use Exception;
 
 class HookPluginInstaller extends LibraryInstaller
 {
+
+  /**
+   * @var bool
+   */
+  protected $debug = false;
+
   /**
    * @param InstalledRepositoryInterface $repository
    * @param PackageInterface             $package
@@ -24,7 +30,13 @@ class HookPluginInstaller extends LibraryInstaller
       $hooks = $extra["hooks"];
     }
 
-    $this->io->write("Hooks: " . print_r($hooks, true));
+    if (isset($extra["debug"])) {
+      $this->debug = (boolean) $extra["debug"];
+    }
+
+    if ($this->debug) {
+      $this->io->write("Hooks: " . print_r($hooks, true));
+    }
 
     foreach ($hooks as $hook) {
       $this->addHook($hook);
@@ -34,20 +46,24 @@ class HookPluginInstaller extends LibraryInstaller
   }
 
   /**
-   * @param mixed $hook
+   * @param array $hook
    */
-  protected function addHook($hook)
+  protected function addHook(array $hook)
   {
-    $this->io->write("Hook: " . print_r($hook, true));
+    if ($this->debug) {
+      $this->io->write("Hook: " . print_r($hook, true));
+    }
 
     try {
       $this->addHookToFile(
-        $hook->key,
-        $hook->classes,
-        $hook->file
+        $hook["key"],
+        $hook["classes"],
+        $hook["file"]
       );
     } catch (Exception $e) {
-      $this->io->write("Skipping malformed hook.");
+      if ($this->debug) {
+        $this->io->write("Skipping malformed hook.");
+      }
     }
   }
 
