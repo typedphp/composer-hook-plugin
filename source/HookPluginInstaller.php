@@ -133,7 +133,9 @@ class HookPluginInstaller extends LibraryInstaller
     $last = preg_quote($last, "\\");
 
     $pattern = "#({$last})#";
+    $source  = preg_quote($source, "\\");
 
+    $this->io->write("source: " . print_r($source, true));
     $this->io->write("pattern: " . print_r($pattern, true));
 
     preg_match_all($pattern, $source, $matches, PREG_OFFSET_CAPTURE);
