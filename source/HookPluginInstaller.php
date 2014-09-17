@@ -126,6 +126,7 @@ class HookPluginInstaller extends LibraryInstaller
     $last   = end($items);
     $single = strpos($source, $last);
     $double = strpos($source, str_replace("\\", "\\\\", $last));
+    $half   = strpos($source, str_replace("\\\\", "\\", $last));
 
     if (is_numeric($single)) {
       $index = strpos($source, "\n", $single);
@@ -135,9 +136,14 @@ class HookPluginInstaller extends LibraryInstaller
       $index = strpos($source, "\n", $double);
     }
 
+    if (is_numeric($half)) {
+      $index = strpos($source, "\n", $half);
+    }
+
     $this->io->write("last: " . print_r($last, true));
     $this->io->write("single: " . print_r($single, true));
     $this->io->write("double: " . print_r($double, true));
+    $this->io->write("half: " . print_r($half, true));
     $this->io->write("index: " . print_r($index, true));
     exit();
 
