@@ -20,11 +20,11 @@ class HookPluginInstaller extends LibraryInstaller
     $hooks = [];
     $extra = $package->getExtra();
 
+    $this->io->write("Extra: " . print_r($extra, true));
+
     if (isset($extra["hooks"])) {
       $hooks = $extra["hooks"];
     }
-
-    die(print_r($extra, true));
 
     foreach ($hooks as $hook) {
       $this->addHook($hook);
