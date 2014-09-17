@@ -36,9 +36,9 @@ class HookPluginInstaller extends LibraryInstaller
   {
     try {
       $this->addHookToFile(
-        $hook["key"],
-        $hook["classes"],
-        $hook["file"]
+        $hook->key,
+        $hook->classes,
+        $hook->file
       );
     } catch (Exception $e) {
       $this->io->write("Skipping malformed hook.");
