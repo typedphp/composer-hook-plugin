@@ -127,12 +127,12 @@ class HookPluginInstaller extends LibraryInstaller
     $single = strpos($source, $last);
     $double = strpos($source, str_replace("\\", "\\\\", $last));
 
-    if ($single !== false) {
-      $index = strpos($source, "\\n", $single);
+    if (is_numeric($single)) {
+      $index = strpos($source, "\n", $single);
     }
 
-    if ($double !== false) {
-      $index = strpos($source, "\\n", $double);
+    if (is_numeric($double)) {
+      $index = strpos($source, "\n", $double);
     }
 
     $this->io->write("last: " . print_r($last, true));
