@@ -17,6 +17,8 @@ class HookPluginInstaller extends LibraryInstaller
    */
   public function install(InstalledRepositoryInterface $repository, PackageInterface $package)
   {
+    $this->io->write("Install");
+
     $hooks = [];
     $extra = $package->getExtra();
 
