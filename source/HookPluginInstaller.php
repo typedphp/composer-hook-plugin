@@ -10,23 +10,19 @@ use Exception;
 class HookPluginInstaller extends LibraryInstaller
 {
   /**
+   * @param InstalledRepositoryInterface $repository
+   * @param PackageInterface             $package
+   *
    * @return array
    */
-  public function install()
+  public function install(InstalledRepositoryInterface $repository, PackageInterface $package)
   {
-    $this->io->write("Install");
-    return;
-
     $hooks = [];
     $extra = $package->getExtra();
-
-    $this->io->write("Extra: " . print_r($extra, true));
 
     if (isset($extra["hooks"])) {
       $hooks = $extra["hooks"];
     }
-
-    $this->io->write("Hooks: " . print_r($hooks, true));
 
     foreach ($hooks as $hook) {
       $this->addHook($hook);
@@ -190,8 +186,6 @@ class HookPluginInstaller extends LibraryInstaller
    */
   public function supports($type)
   {
-    $this->io->write("Supports");
-
     return true;
   }
 }
