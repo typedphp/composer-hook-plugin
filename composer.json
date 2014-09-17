@@ -31,7 +31,7 @@
   },
   "extra" : {
     "class" : [
-      "TypedPHP\\Composer\\ConfigurationPlugin"
+      "TypedPHP\\Composer\\HookPlugin"
     ]
   }
 }
