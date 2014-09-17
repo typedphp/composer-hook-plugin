@@ -140,13 +140,6 @@ class HookPluginInstaller extends LibraryInstaller
       $index = strpos($source, "\n", $half);
     }
 
-    $this->io->write("last: " . print_r($last, true));
-    $this->io->write("single: " . print_r($single, true));
-    $this->io->write("double: " . print_r($double, true));
-    $this->io->write("half: " . print_r($half, true));
-    $this->io->write("index: " . print_r($index, true));
-    exit();
-
     if ($index) {
       return $index;
     }
