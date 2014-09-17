@@ -132,7 +132,7 @@ class HookPluginInstaller extends LibraryInstaller
     $last = end($items);
     $last = preg_quote($last, "\\");
 
-    $pattern = "#{$last}.+?\n#";
+    $pattern = "#{$last}['\"],?\\n#";
 
     $this->io->write("pattern: " . print_r($pattern, true));
 
