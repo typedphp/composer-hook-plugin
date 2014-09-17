@@ -75,6 +75,10 @@ class HookPluginInstaller extends LibraryInstaller
   protected function addHookToFile($key, array $classes, $file)
   {
     if (!file_exists($file)) {
+      if ($this->debug) {
+        $this->io->write("File {$file} not found.");
+      }
+
       return;
     }
 
@@ -82,7 +86,17 @@ class HookPluginInstaller extends LibraryInstaller
     $source   = file_get_contents($file);
     $previous = $this->getArrayValueByKey($data, $key);
 
+    if ($this->debug) {
+      $this->io->write("Data: " . print_r($data, true));
+      $this->io->write("Source: " . print_r($source, true));
+      $this->io->write("Previous: " . print_r($previous, true));
+    }
+
     if (empty($previous)) {
+      if ($this->debug) {
+        $this->io->write("No previous items to track.");
+      }
+
       return;
     }
 
