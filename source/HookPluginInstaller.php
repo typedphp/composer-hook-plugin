@@ -5,7 +5,6 @@ namespace TypedPHP\Composer;
 use Composer\Installer\LibraryInstaller;
 use Composer\Package\PackageInterface;
 use Composer\Repository\InstalledRepositoryInterface;
-use Exception;
 
 class HookPluginInstaller extends LibraryInstaller
 {
@@ -125,7 +124,9 @@ class HookPluginInstaller extends LibraryInstaller
    */
   protected function getInsertionIndex(array $items, $source, $key)
   {
-    $last   = end($items);
+    $last = end($items);
+    $key  = strpos($source, $key);
+    
     $single = strpos($source, $last, $key);
     $double = strpos($source, str_replace("\\", "\\\\", $last), $key);
     $half   = strpos($source, str_replace("\\\\", "\\", $last), $key);
