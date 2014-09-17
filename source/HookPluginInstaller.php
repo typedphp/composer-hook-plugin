@@ -27,6 +27,8 @@ class HookPluginInstaller extends LibraryInstaller
     foreach ($hooks as $hook) {
       $this->addHook($hook);
     }
+
+    parent::install($repository, $package);
   }
 
   /**
