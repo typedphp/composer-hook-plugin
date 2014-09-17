@@ -24,7 +24,7 @@ class HookPluginInstaller extends LibraryInstaller
       $hooks = $extra["hooks"];
     }
 
-    print_r($extra);
+    die(print_r($extra, true));
 
     foreach ($hooks as $hook) {
       $this->addHook($hook);
