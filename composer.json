@@ -1,5 +1,5 @@
 {
-  "name" : "typedphp/composer-configuration-plugin",
+  "name" : "typedphp/composer-hook-plugin",
   "type" : "composer-plugin",
   "license" : "MIT",
   "authors" : [
