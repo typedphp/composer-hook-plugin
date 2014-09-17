@@ -25,6 +25,7 @@ class ConfigurationPluginInstaller extends LibraryInstaller
     }
 
     foreach ($hooks as $hook) {
+      print_r($hook);
       $this->addHook($hook);
     }
   }
