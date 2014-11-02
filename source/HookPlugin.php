@@ -8,16 +8,16 @@ use Composer\Plugin\PluginInterface;
 
 class HookPlugin implements PluginInterface
 {
-  /**
-   * @param Composer    $composer
-   * @param IOInterface $io
-   */
-  public function activate(Composer $composer, IOInterface $io)
-  {
-    $installer = new HookPluginInstaller($io, $composer);
+    /**
+     * @param Composer    $composer
+     * @param IOInterface $io
+     */
+    public function activate(Composer $composer, IOInterface $io)
+    {
+        $installer = new HookPluginInstaller($io, $composer);
 
-    $composer
-      ->getInstallationManager()
-      ->addInstaller($installer);
-  }
+        $composer
+            ->getInstallationManager()
+            ->addInstaller($installer);
+    }
 }
